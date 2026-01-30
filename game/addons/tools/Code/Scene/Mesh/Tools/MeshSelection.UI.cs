@@ -321,8 +321,7 @@ partial class MeshSelection
 			var targetPath = EditorUtility.SaveFileDialog( "Create Model..", "vmdl", "" );
 			if ( targetPath is null ) return;
 
-			var meshes = _meshes.Select( x => x.Mesh ).ToArray();
-			EditorUtility.CreateModelFromPolygonMeshes( meshes, targetPath );
+			EditorUtility.CreateModelFromMeshComponents( _meshes, targetPath );
 		}
 	}
 }
