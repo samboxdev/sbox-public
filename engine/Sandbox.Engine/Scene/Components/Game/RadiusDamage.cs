@@ -145,7 +145,7 @@ public sealed class RadiusDamage : Component
 			if ( occlusion )
 			{
 				// If the object isn't in line of sight, fuck it off
-				var tr = losTrace.Ray( point, rb.WorldPosition + rb.MassCenter ).Run();
+				var tr = losTrace.Ray( point, rb.PhysicsBody.MassCenter ).Run();
 				if ( tr.Hit && tr.GameObject.IsValid() )
 				{
 					if ( !rb.GameObject.Root.IsDescendant( tr.GameObject ) )
@@ -153,8 +153,8 @@ public sealed class RadiusDamage : Component
 				}
 			}
 
-			var dir = (rb.WorldPosition - point).Normal;
-			var distance = rb.WorldPosition.Distance( sphere.Center );
+			var dir = (rb.PhysicsBody.MassCenter - point).Normal;
+			var distance = rb.PhysicsBody.MassCenter.Distance( sphere.Center );
 
 			var forceMagnitude = Math.Clamp( 10000000000f / (distance * distance + 1), 0, 10000000000f );
 			forceMagnitude += physicsForce * damageFalloff.Evaluate( distance / sphere.Radius );
